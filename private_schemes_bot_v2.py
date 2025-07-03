@@ -4,7 +4,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 
 logging.basicConfig(level=logging.INFO)
 
-TOKEN = "8073483621:AAGQrD7Dd0kHuYDGDV6Sx9uItY1RY4ha9-U"
+TOKEN = "8073483621:AAH88FAqGKBZd-mk5JeSRXFkytEaw9nsmug"
 
 # Главное меню
 def main_menu_keyboard():
