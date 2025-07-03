@@ -17,6 +17,15 @@ def main_menu_keyboard():
         [InlineKeyboardButton("18+ 🍓", callback_data="adults")]
     ])
 
+# Подразделы для Привязки
+def hook_submenu():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 Хорошее общение 1–3 дня", callback_data="hook_1_3")],
+        [InlineKeyboardButton("📞 Хорошее общение 3+ дней", callback_data="hook_3_plus")],
+        [InlineKeyboardButton("🖕 Мужчина общается, но часто пропадает", callback_data="hook_miss")],
+        [InlineKeyboardButton("🔙 Назад", callback_data="main")]
+    ])
+
 # Кнопка назад
 def back_to_main_menu():
     return InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Назад", callback_data="main")]])
@@ -34,17 +43,16 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data == "main":
         await query.edit_message_text("📍 Главное меню: Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
     elif data == "start_shift":
-        await query.edit_message_text("🔄 НАЧАЛО СМЕНЫ 👀(Здесь будет контент позже)", reply_markup=back_to_main_menu()) 
+        await query.edit_message_text("🔄 НАЧАЛО СМЕНЫ 👀(Здесь будет контент позже)", reply_markup=back_to_main_menu())
     elif data == "hook":
-        elif data == "hook":
-        await query.edit_message_text(
-            "😍 Привязка — выбери ситуацию 👇",reply_markup=hook_submenu())
+        await query.edit_message_text("😍 Привязка — выбери ситуацию 👇", reply_markup=hook_submenu())
     elif data == "hook_1_3":
-        await query.edit_message_text("🔥 Хорошее общение 1–3 дня — тут будет твой текст или контент!",reply_markup=hook_submenu())
+        await query.edit_message_text("🔥 Хорошее общение 1–3 дня — тут будет твой текст или контент!", reply_markup=hook_submenu())
     elif data == "hook_3_plus":
-        await query.edit_message_text( "📞 Хорошее общение 3+ дней — здесь твой текст!",reply_markup=hook_submenu())
+        await query.edit_message_text("📞 Хорошее общение 3+ дней — здесь твой текст!", reply_markup=hook_submenu())
     elif data == "hook_miss":
-        await query.edit_message_text("🖕 Мужчина общается, но часто пропадает — и тут твой текст!",reply_markup=hook_submenu())
+        await query.edit_message_text("🖕 Мужчина общается, но часто пропадает — и тут твой текст!", reply_markup=hook_submenu())
+    elif data == "no_hook":
         await query.edit_message_text("⛔️ НЕ ПРИВЯЗКА(Здесь будет контент позже)", reply_markup=back_to_main_menu())
     elif data == "phone_push":
         await query.edit_message_text("📲 РАЗЪЕБ НА НОМЕР(Здесь будет контент позже)", reply_markup=back_to_main_menu())
