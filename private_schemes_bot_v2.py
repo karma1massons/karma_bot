@@ -56,9 +56,7 @@ def main_menu_keyboard():
 
 # Старт
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📍 Главное меню:
-
-Выбери, что хочешь показать команде 👇", reply_markup=main_menu_keyboard())
+    await update.message.reply_text("📍 Главное меню:Выбери, что хочешь показать команде 👇", reply_markup=main_menu_keyboard())
 
 # Обработчик кнопок
 async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
