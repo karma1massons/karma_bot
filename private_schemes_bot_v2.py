@@ -1,58 +1,49 @@
+import logging
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-    import logging
-    from telegram import Update, ReplyKeyboardMarkup
-    from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+logging.basicConfig(level=logging.INFO)
 
-    # Логирование
-    logging.basicConfig(
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.INFO
-    )
+TOKEN = 'ВАШ_ТОКЕН_ЗДЕСЬ'  # ← замени на свой токен
 
-    # Доступ только для владельца (временно — только твой Telegram ID, потом можно расширить)
-    ALLOWED_USERS = [8073483621]
+menu_options = {
+    "1": "📌 Вариант 1: Работа на привязку\n\nМы даём максимум романтики, рассказываем о себе, создаём связь. Цель — завести мужчину на письма через опрос или романтику, а там уже держать баланс!",
+    "2": "📌 Вариант 2: Работа вне сайта\n\nЕсли мужчина не идёт на привязку, просим уйти с сайта, обмениваемся контактами через менеджера или техподдержку. Там делаем звонок и удерживаем его всеми доступными схемами."
+}
 
-    async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        user_id = update.effective_user.id
-        if user_id not in ALLOWED_USERS:
-            await update.message.reply_text("⛔ У вас нет доступа к этому боту.")
-            return
+followup_schemes = {
+    "manager": "🧠 Схема: Проблема / Менеджер\n\nРассказываем о проблемах, визах, возвратах — всё, чтобы активировать заботу и вложения.",
+    "health": "🏥 Схема: Больница / Болезнь\n\nИспользуем эмоциональное давление, рассказываем о срочных проблемах со здоровьем.",
+    "gifts": "🎁 Схема: Подарки и сайт X\n\nПодключаем сайт X или просим подарки — всё на эмоциях и желании быть ближе."
+}
 
-        keyboard = [
-            ["📌 Принципы работы", "💬 Схемы привязки"],
-            ["💰 Схемы: Тянем баланс", "🎁 Сайт X и Подарки"],
-            ["📞 Вывод за сайт", "❓ Помощь"]
-        ]
-        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-        await update.message.reply_text("Привет! Выбери нужный раздел:", reply_markup=reply_markup)
 
-    async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        user_id = update.effective_user.id
-        if user_id not in ALLOWED_USERS:
-            await update.message.reply_text("⛔ У вас нет доступа к этому боту.")
-            return
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("Вариант 1: Привязка", callback_data='1')],
+        [InlineKeyboardButton("Вариант 2: Вне сайта", callback_data='2')],
+        [InlineKeyboardButton("Схема: Менеджер", callback_data='manager')],
+        [InlineKeyboardButton("Схема: Больница", callback_data='health')],
+        [InlineKeyboardButton("Схема: Подарки", callback_data='gifts')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Выбери, что хочешь показать команде 👇", reply_markup=reply_markup)
 
-        text = update.message.text
 
-        responses = {
-            "📌 Принципы работы": "Мы работаем на привязку. Даём романтику, раскрываем себя, подводим к письмам и создаём баланс.",
-            "💬 Схемы привязки": "Если мужчина не идёт на привязку — предлагаем уйти с сайта, обмениваемся контактами, делаем звонок и дожимаем вне сайта.",
-            "💰 Схемы: Тянем баланс": "Схемы:
-- Виза и приезд
-- Больницы и болезни
-- Сайт завис
-- Подарки и медиа
-- Возврат средств",
-            "🎁 Сайт X и Подарки": "Сайт X — где 'можно всё'. Подарки — через сайт, как внимание, сюрприз, знак любви.",
-            "📞 Вывод за сайт": "Привязываем → предлагаем обмен контактами → звонок → полное закрытие вне сайта.",
-            "❓ Помощь": "Если не знаешь, что выбрать — пиши менеджеру. Или нажми /start."
-        }
+async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
-        reply = responses.get(text, "Пожалуйста, выбери вариант из меню.")
-        await update.message.reply_text(reply)
+    data = query.data
+    if data in menu_options:
+        await query.edit_message_text(text=menu_options[data])
+    elif data in followup_schemes:
+        await query.edit_message_text(text=followup_schemes[data])
 
-    if __name__ == "__main__":
-        app = ApplicationBuilder().token("8073483621:AAEN5hE2U0_Za2Rbfs68Bp6prWMDekzxIpA").build()
-        app.add_handler(CommandHandler("start", start))
-        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-        app.run_polling()
+
+if __name__ == '__main__':
+    app = ApplicationBuilder().token(8073483621:AAEN5hE2U0_Za2Rbfs68Bp6prWMDekzxIpA).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CallbackQueryHandler(button))
+    app.run_polling()
+
