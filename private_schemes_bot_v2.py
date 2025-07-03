@@ -14,7 +14,7 @@ def main_menu_keyboard():
         [InlineKeyboardButton("НЕ ПРИВЯЗКА ⛔️", callback_data="no_hook")],
         [InlineKeyboardButton("РАЗЪЕБ НА НОМЕР 📲", callback_data="phone_push")],
         [InlineKeyboardButton("НЕТ КОНТАКТОВ ‼️", callback_data="no_contacts")],
-        [InlineKeyboardButton("18+ 🍓", callback_data="adults")]
+        [InlineKeyboardButton("18+ 🍓", callback_data="adults")],
         [InlineKeyboardButton("СХЕМЫ И ОПРОСНИКИ 🗒", callback_data="schemes_surveys")]
     ])   
 
