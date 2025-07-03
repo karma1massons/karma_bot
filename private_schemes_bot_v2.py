@@ -47,7 +47,7 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("🍓 18+(Здесь будет контент позже)", reply_markup=back_to_main_menu())
 
 if __name__ == '__main__':
-    app = ApplicationBuilder().token("ВАШ_ТОКЕН_ЗДЕСЬ").build()
+    app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(handle_buttons))
     app.run_polling()
