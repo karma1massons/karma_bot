@@ -42,7 +42,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-    app = ApplicationBuilder().token(8073483621:AAEN5hE2U0_Za2Rbfs68Bp6prWMDekzxIpA).build()
+    app = ApplicationBuilder().token("8073483621:AAEN5hE2U0_Za2Rbfs68Bp6prWMDekzxIpA").build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button))
     app.run_polling()
