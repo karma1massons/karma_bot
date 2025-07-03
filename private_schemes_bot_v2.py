@@ -23,9 +23,7 @@ def back_to_main_menu():
 
 # Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📍 Главное меню:
-
-Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
+    await update.message.reply_text("📍 Главное меню:Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
 
 # Обработка нажатий
 async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -34,9 +32,7 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "main":
-        await query.edit_message_text("📍 Главное меню:
-
-Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
+        await query.edit_message_text("📍 Главное меню:Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
     elif data == "start_shift":
         await query.edit_message_text("🔄 НАЧАЛО СМЕНЫ 👀(Здесь будет контент позже)", reply_markup=back_to_main_menu()) 
     elif data == "hook":
