@@ -15,7 +15,8 @@ def main_menu_keyboard():
         [InlineKeyboardButton("РАЗЪЕБ НА НОМЕР 📲", callback_data="phone_push")],
         [InlineKeyboardButton("НЕТ КОНТАКТОВ ‼️", callback_data="no_contacts")],
         [InlineKeyboardButton("18+ 🍓", callback_data="adults")]
-    ])
+        [InlineKeyboardButton("СХЕМЫ И ОПРОСНИКИ 🗒", callback_data="schemes_surveys")]
+    ])   
 
 # Подразделы для Привязки
 def hook_submenu():
@@ -60,7 +61,8 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("‼️ НЕТ КОНТАКТОВ(Здесь будет контент позже)", reply_markup=back_to_main_menu())
     elif data == "adults":
         await query.edit_message_text("🍓 18+(Здесь будет контент позже)", reply_markup=back_to_main_menu())
-
+    elif data == "schemes_surveys":
+        await query.edit_message_text("🗒 СХЕМЫ И ОПРОСНИКИ(Здесь будет контент позже)", reply_markup=back_to_main_menu())
 if __name__ == '__main__':
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
