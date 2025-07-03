@@ -32,12 +32,19 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "main":
-        await query.edit_message_text("📍 Главное меню:Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
+        await query.edit_message_text("📍 Главное меню: Выбери нужный раздел 👇", reply_markup=main_menu_keyboard())
     elif data == "start_shift":
         await query.edit_message_text("🔄 НАЧАЛО СМЕНЫ 👀(Здесь будет контент позже)", reply_markup=back_to_main_menu()) 
     elif data == "hook":
-        await query.edit_message_text("😍 ПРИВЯЗКА (Здесь будет контент позже)", reply_markup=back_to_main_menu())
-    elif data == "no_hook":
+        elif data == "hook":
+        await query.edit_message_text(
+            "😍 Привязка — выбери ситуацию 👇",reply_markup=hook_submenu())
+    elif data == "hook_1_3":
+        await query.edit_message_text("🔥 Хорошее общение 1–3 дня — тут будет твой текст или контент!",reply_markup=hook_submenu())
+    elif data == "hook_3_plus":
+        await query.edit_message_text( "📞 Хорошее общение 3+ дней — здесь твой текст!",reply_markup=hook_submenu())
+    elif data == "hook_miss":
+        await query.edit_message_text("🖕 Мужчина общается, но часто пропадает — и тут твой текст!",reply_markup=hook_submenu())
         await query.edit_message_text("⛔️ НЕ ПРИВЯЗКА(Здесь будет контент позже)", reply_markup=back_to_main_menu())
     elif data == "phone_push":
         await query.edit_message_text("📲 РАЗЪЕБ НА НОМЕР(Здесь будет контент позже)", reply_markup=back_to_main_menu())
